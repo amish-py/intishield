@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Niscord | Media Channel</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css">
+  <style>
+    :root {
+      --bg-dark: #1e1f22;
+      --bg-chat: #313338;
+      --bg-card: #2b2d31;
+      --border: #3f4147;
+      --text: #dbdee1;
+      --text-muted: #949ba4;
+      --white: #f2f3f5;
+      --accent: #5865f2;
+      --accent-hover: #4752c4;
+      --danger: #ef4444;
+      --danger-bg: #2d181e;
+      --danger-border: #7f1d1d;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.5;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* TOP HEADER */
+    .niscord-header {
+      background-color: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      flex-shrink: 0;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .niscord-logo {
+      height: 28px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .channel-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .intishield-partner-badge {
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #93c5fd;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+    }
+
+    .intishield-partner-badge:hover {
+      background: #334155;
+    }
+
+    /* MAIN CONTAINER */
+    .niscord-body {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      width: 240px;
+      background: var(--bg-card);
+      border-right: 1px solid var(--border);
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .side-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 4px;
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .side-item.active, .side-item:hover {
+      background: #35373c;
+      color: var(--white);
+    }
+
+    /* FEED */
+    .feed-container {
+      flex: 1;
+      background: var(--bg-chat);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .feed-inner {
+      width: min(720px, 100%);
+      margin: 0 auto;
+      padding: 24px 16px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* UPLOAD COMPOSER BOX */
+    .composer-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 18px 20px;
+    }
+
+    .composer-header {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .caption-input {
+      width: 100%;
+      background: var(--bg-chat);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--white);
+      padding: 10px 14px;
+      font-size: 14px;
+      outline: none;
+      margin-bottom: 12px;
+    }
+
+    .caption-input:focus {
+      border-color: var(--accent);
+    }
+
+    .composer-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .file-select-btn {
+      background: #35373c;
+      border: 1px solid var(--border);
+      color: var(--white);
+      padding: 8px 14px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .file-select-btn:hover {
+      background: #3f4248;
+    }
+
+    .post-btn {
+      background: var(--accent);
+      border: none;
+      color: #ffffff;
+      padding: 8px 20px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .post-btn:hover {
+      background: var(--accent-hover);
+    }
+
+    .post-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .file-chosen-text {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* POST CARD */
+    .post-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 18px 20px;
+    }
+
+    .post-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #475569;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .author-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .post-time {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-left: 8px;
+    }
+
+    .post-caption {
+      font-size: 14px;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .post-image {
+      max-width: 100%;
+      max-height: 480px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      display: block;
+      object-fit: contain;
+    }
+
+    /* TAKEDOWN NOTICE BOX */
+    .takedown-box {
+      background: var(--danger-bg);
+      border: 1px solid var(--danger-border);
+      border-radius: 4px;
+      padding: 20px 22px;
+    }
+
+    .takedown-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fca5a5;
+      margin-bottom: 8px;
+    }
+
+    .takedown-header i {
+      font-size: 18px;
+      color: var(--danger);
+    }
+
+    .takedown-body {
+      font-size: 13px;
+      color: #fecaca;
+      line-height: 1.6;
+    }
+
+    .takedown-badge {
+      display: inline-block;
+      font-family: monospace;
+      background: #4c1d24;
+      border: 1px solid var(--danger-border);
+      padding: 2px 8px;
+      border-radius: 4px;
+      color: #ffffff;
+      font-size: 12px;
+      margin: 4px 0;
+    }
+
+    .takedown-sub {
+      margin-top: 8px;
+      font-size: 11.5px;
+      color: #991b1b;
+    }
+
+    @media (max-width: 680px) {
+      .sidebar {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="niscord-header">
+    <div class="brand-wrap">
+      <img src="/assets/niscord.png" alt="Niscord" class="niscord-logo">
+      <div class="channel-title">
+        <i class="ri-hashtag"></i> media-feed
+      </div>
+    </div>
+    <div>
+      <a href="/" class="intishield-partner-badge">
+        <i class="ri-shield-check-line"></i> Protected by IntiShield
+      </a>
+    </div>
+  </header>
+
+  <!-- BODY -->
+  <div class="niscord-body">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="side-item active">
+        <i class="ri-hashtag"></i> media-feed
+      </div>
+      <div class="side-item">
+        <i class="ri-hashtag"></i> general
+      </div>
+      <div class="side-item">
+        <i class="ri-hashtag"></i> safety-logs
+      </div>
+      <div style="margin-top: auto; padding-top: 16px; border-top: 1px solid var(--border);">
+        <a href="/" style="color: var(--text-muted); font-size: 12px; text-decoration: none; display: flex; align-items: center; gap: 6px;">
+          <i class="ri-arrow-left-line"></i> Go to IntiShield
+        </a>
+      </div>
+    </div>
+
+    <!-- FEED -->
+    <div class="feed-container">
+      <div class="feed-inner">
+
+        <!-- COMPOSER -->
+        <div class="composer-card">
+          <div class="composer-header">
+            <i class="ri-image-add-line"></i> Post Image to #media-feed
+          </div>
+          <input type="text" id="captionInput" class="caption-input" placeholder="Add an optional caption...">
+          
+          <input type="file" id="niscordFileInput" accept="image/*" style="display: none;">
+          
+          <div class="composer-actions">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <button class="file-select-btn" type="button" onclick="document.getElementById('niscordFileInput').click()">
+                <i class="ri-upload-2-line"></i> Select Photo
+              </button>
+              <span id="chosenFileLabel" class="file-chosen-text">No file selected</span>
+            </div>
+            
+            <button id="postBtn" class="post-btn" type="button" disabled onclick="submitNiscordPost()">
+              Post to Feed
+            </button>
+          </div>
+        </div>
+
+        <!-- POSTS STREAM -->
+        <div id="postsList" style="display: flex; flex-direction: column; gap: 16px;">
+          <p style="font-size: 13px; color: var(--text-muted); text-align: center;">Loading channel messages...</p>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- pHash Engine inside Niscord (Zero-upload DCT computation) -->
+  <script>
+    class PerceptualHasher {
+      constructor() {
+        this.SAMPLE_SIZE = 32;
+        this.HASH_SIZE = 8;
+        this.cosTable = [];
+        for (let u = 0; u < this.HASH_SIZE; u++) {
+          this.cosTable[u] = [];
+          for (let x = 0; x < this.SAMPLE_SIZE; x++) {
+            this.cosTable[u][x] = Math.cos(((2 * x + 1) * u * Math.PI) / (2 * this.SAMPLE_SIZE));
+          }
+        }
+      }
+
+      hashImage(img) {
+        const canvas = document.createElement("canvas");
+        canvas.width = this.SAMPLE_SIZE;
+        canvas.height = this.SAMPLE_SIZE;
+        const ctx = canvas.getContext("2d", { willReadFrequently: true });
+        ctx.drawImage(img, 0, 0, this.SAMPLE_SIZE, this.SAMPLE_SIZE);
+        const data = ctx.getImageData(0, 0, this.SAMPLE_SIZE, this.SAMPLE_SIZE).data;
+
+        const matrix = [];
+        for (let y = 0; y < this.SAMPLE_SIZE; y++) {
+          matrix[y] = [];
+          for (let x = 0; x < this.SAMPLE_SIZE; x++) {
+            const idx = (y * this.SAMPLE_SIZE + x) * 4;
+            matrix[y][x] = data[idx] * 0.299 + data[idx + 1] * 0.587 + data[idx + 2] * 0.114;
+          }
+        }
+
+        const rowDct = [];
+        for (let y = 0; y < this.SAMPLE_SIZE; y++) {
+          rowDct[y] = [];
+          for (let u = 0; u < this.HASH_SIZE; u++) {
+            let sum = 0;
+            for (let x = 0; x < this.SAMPLE_SIZE; x++) sum += matrix[y][x] * this.cosTable[u][x];
+            rowDct[y][u] = sum;
+          }
+        }
+
+        const dctCoeffs = [];
+        for (let v = 0; v < this.HASH_SIZE; v++) {
+          for (let u = 0; u < this.HASH_SIZE; u++) {
+            let sum = 0;
+            for (let y = 0; y < this.SAMPLE_SIZE; y++) sum += rowDct[y][u] * this.cosTable[v][y];
+            dctCoeffs.push(sum);
+          }
+        }
+
+        const ac = dctCoeffs.slice(1);
+        const sorted = [...ac].sort((a, b) => a - b);
+        const median = sorted[Math.floor(sorted.length / 2)];
+
+        let binary = "";
+        for (let i = 0; i < 64; i++) binary += dctCoeffs[i] > median ? "1" : "0";
+
+        let hex = "";
+        for (let i = 0; i < 64; i += 4) {
+          hex += parseInt(binary.substring(i, i + 4), 2).toString(16);
+        }
+        return hex;
+      }
+    }
+
+    const hasher = new PerceptualHasher();
+    let pendingImageData = null;
+    let pendingHash = null;
+
+    // Handle File Selection
+    const fileInput = document.getElementById("niscordFileInput");
+    const chosenLabel = document.getElementById("chosenFileLabel");
+    const postBtn = document.getElementById("postBtn");
+
+    fileInput.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      chosenLabel.innerText = "Analyzing perceptual hash...";
+      postBtn.disabled = true;
+
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const base64 = event.target.result;
+        const img = new Image();
+        img.onload = () => {
+          pendingImageData = base64;
+          pendingHash = hasher.hashImage(img);
+          chosenLabel.innerText = `${file.name} (pHash: ${pendingHash.substring(0, 8)}...)`;
+          postBtn.disabled = false;
+        };
+        img.src = base64;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // Submit Post
+    async function submitNiscordPost() {
+      if (!pendingImageData || !pendingHash) return;
+
+      const caption = document.getElementById("captionInput").value.trim();
+      postBtn.disabled = true;
+      postBtn.innerText = "Posting...";
+
+      try {
+        const res = await fetch("/api/niscord/posts", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            author: "User_" + Math.floor(1000 + Math.random() * 9000),
+            caption: caption,
+            image_data: pendingImageData,
+            phash: pendingHash
+          })
+        });
+
+        const data = await res.json();
+        
+        // Reset composer
+        document.getElementById("captionInput").value = "";
+        fileInput.value = "";
+        pendingImageData = null;
+        pendingHash = null;
+        chosenLabel.innerText = "No file selected";
+        postBtn.innerText = "Post to Feed";
+        postBtn.disabled = true;
+
+        loadFeed();
+      } catch (e) {
+        alert("Failed to submit post.");
+        postBtn.disabled = false;
+        postBtn.innerText = "Post to Feed";
+      }
+    }
+
+    // Load and Render Feed
+    async function loadFeed() {
+      try {
+        const res = await fetch("/api/niscord/posts");
+        const data = await res.json();
+        const container = document.getElementById("postsList");
+
+        if (!data.posts || !data.posts.length) {
+          container.innerHTML = `<p style="font-size: 13px; color: var(--text-muted); text-align: center; padding: 24px;">No posts yet in #media-feed. Upload an image above to test.</p>`;
+          return;
+        }
+
+        container.innerHTML = "";
+
+        data.posts.forEach((post) => {
+          const card = document.createElement("div");
+          card.className = "post-card";
+
+          const initial = post.author.substring(0, 1).toUpperCase();
+
+          let mediaContent = "";
+          if (post.status === "taken_down") {
+            mediaContent = `
+              <div class="takedown-box">
+                <div class="takedown-header">
+                  <i class="ri-shield-cross-line"></i>
+                  <span>Media Quarantined &amp; Taken Down</span>
+                </div>
+                <div class="takedown-body">
+                  This media has been removed in compliance with an IntiShield Non-Consensual Media Protection Match.
+                  <div>Case Identification: <span class="takedown-badge">${post.takedown_case_id}</span></div>
+                  <div class="takedown-sub">Action executed: ${post.takedown_time || post.created_at}</div>
+                </div>
+              </div>
+            `;
+          } else {
+            mediaContent = `
+              <img src="${post.image_data}" alt="Post image" class="post-image">
+            `;
+          }
+
+          card.innerHTML = `
+            <div class="post-header">
+              <div class="avatar">${initial}</div>
+              <div>
+                <span class="author-name">${post.author}</span>
+                <span class="post-time">${post.created_at}</span>
+              </div>
+            </div>
+            ${post.caption ? `<p class="post-caption">${post.caption}</p>` : ''}
+            ${mediaContent}
+          `;
+
+          container.appendChild(card);
+        });
+      } catch (e) {
+        console.error("Feed error", e);
+      }
+    }
+
+    // Initial load & 4-second poll to demonstrate live takedown
+    loadFeed();
+    setInterval(loadFeed, 4000);
+  </script>
+</body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Console | IntiShield</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    .admin-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    .admin-stat-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 18px 20px;
+    }
+
+    .admin-stat-card span {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .admin-stat-card h3 {
+      font-size: 26px;
+      color: var(--ink);
+      margin-top: 4px;
+    }
+
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .admin-table th, .admin-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+    }
+
+    .admin-table th {
+      background: var(--soft);
+      font-weight: 700;
+      color: var(--ink);
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .admin-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .hash-code {
+      font-family: ui-monospace, SFMono-Regular, monospace;
+      font-size: 11.5px;
+      background: var(--soft);
+      border: 1px solid var(--line);
+      padding: 2px 6px;
+      border-radius: 3px;
+      color: var(--accent);
+    }
+
+    .btn-action-small {
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      border: 1px solid var(--line);
+      background: var(--white);
+      color: var(--ink);
+    }
+
+    .btn-action-small:hover {
+      background: var(--soft);
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="top">
+    <div class="wrap bar">
+      <a class="brand" href="/" aria-label="IntiShield home">
+        <img class="brand-logo" src="/assets/logo.png" alt="IntiShield">
+      </a>
+      <nav id="nav">
+        <a href="/">Home</a>
+        <a href="/status">Case Status</a>
+        <a href="/niscord">Niscord Feed</a>
+      </nav>
+      <div class="acts">
+        <span class="status-pill status-active" style="font-size: 11px;">
+          <i class="ri-lock-line"></i> Privacy Mode: Zero Photo Storage
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap" style="padding: 48px 0 80px;">
+
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 28px; flex-wrap: wrap; gap: 16px;">
+      <div>
+        <h1 style="font-size: 26px; font-weight: 700; color: var(--ink);">IntiShield Operations Console</h1>
+        <p style="color: var(--muted); font-size: 14px; margin-top: 4px;">
+          Manage registered perceptual hashes and partner platform integration requests.
+        </p>
+      </div>
+      <button class="btn alt" type="button" onclick="loadAdminData()">
+        <i class="ri-refresh-line" style="margin-right: 6px;"></i> Refresh Data
+      </button>
+    </div>
+
+    <!-- STATS ROW -->
+    <div class="admin-stats-grid">
+      <div class="admin-stat-card">
+        <span>Total Registered Cases</span>
+        <h3 id="statTotalCases">0</h3>
+      </div>
+      <div class="admin-stat-card">
+        <span>Pending Review</span>
+        <h3 id="statPendingCases">0</h3>
+      </div>
+      <div class="admin-stat-card">
+        <span>Active &amp; Enforced</span>
+        <h3 id="statActiveCases">0</h3>
+      </div>
+      <div class="admin-stat-card">
+        <span>Revoked / Removed</span>
+        <h3 id="statRemovedCases">0</h3>
+      </div>
+      <div class="admin-stat-card">
+        <span>Partner Inquiries</span>
+        <h3 id="statTotalPartners">0</h3>
+      </div>
+    </div>
+
+    <!-- SECTION 1: PROTECTED CASES (NO PHOTOS) -->
+    <section style="margin-bottom: 56px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h2 style="font-size: 18px; font-weight: 700; color: var(--ink);">
+          <i class="ri-fingerprint-line" style="color: var(--accent); margin-right: 6px;"></i> Registered Protection Cases
+        </h2>
+        <span style="font-size: 12px; color: var(--muted);">Original images never stored or displayed</span>
+      </div>
+
+      <div style="overflow-x: auto;">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Case ID</th>
+              <th>Contact Email</th>
+              <th>Items</th>
+              <th>Sample pHash Fingerprint</th>
+              <th>Status</th>
+              <th>Submitted</th>
+              <th>Admin Action</th>
+            </tr>
+          </thead>
+          <tbody id="casesTableBody">
+            <tr><td colspan="7" style="text-align: center; color: var(--muted);">Loading cases...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- SECTION 2: COMPANY INTEGRATION REQUESTS -->
+    <section>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h2 style="font-size: 18px; font-weight: 700; color: var(--ink);">
+          <i class="ri-building-line" style="color: var(--accent); margin-right: 6px;"></i> Companies Requesting Integration
+        </h2>
+        <span style="font-size: 12px; color: var(--muted);">Platform onboarding applications</span>
+      </div>
+
+      <div style="overflow-x: auto;">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>Platform Name</th>
+              <th>Contact Email</th>
+              <th>Tier</th>
+              <th>Hash Tech Supported</th>
+              <th>Website / Store Link</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="partnersTableBody">
+            <tr><td colspan="7" style="text-align: center; color: var(--muted);">Loading partner requests...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    async function loadAdminData() {
+      try {
+        const res = await fetch('/api/admin/overview');
+        const data = await res.json();
+
+        // Update Stats
+        document.getElementById('statTotalCases').innerText = data.stats.total_cases;
+        document.getElementById('statPendingCases').innerText = data.stats.pending_cases;
+        document.getElementById('statActiveCases').innerText = data.stats.active_cases;
+        document.getElementById('statRemovedCases').innerText = data.stats.removed_cases;
+        document.getElementById('statTotalPartners').innerText = data.stats.total_partners;
+
+        // Populate Cases (Strictly Hashes Only)
+        const casesTbody = document.getElementById('casesTableBody');
+        casesTbody.innerHTML = '';
+        if (!data.cases || !data.cases.length) {
+          casesTbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: var(--muted); padding: 24px;">No cases registered yet.</td></tr>';
+        } else {
+          data.cases.forEach(c => {
+            const tr = document.createElement('tr');
+            
+            let statusPill = `<span class="status-pill status-pending">PENDING</span>`;
+            if (c.status === 'active') statusPill = `<span class="status-pill status-active">ACTIVE</span>`;
+            if (c.status === 'removed') statusPill = `<span class="status-pill status-removed">REMOVED</span>`;
+
+            const sampleHash = c.fingerprints && c.fingerprints[0] 
+              ? `<span class="hash-code">${c.fingerprints[0].fingerprint.substring(0, 14)}...</span>` 
+              : `<span style="color:var(--muted)">-</span>`;
+
+            tr.innerHTML = `
+              <td><strong>${c.case_id}</strong></td>
+              <td>${c.email}</td>
+              <td>${c.total_items} file(s)</td>
+              <td>${sampleHash}</td>
+              <td>${statusPill}</td>
+              <td style="color: var(--muted); font-size: 12px;">${c.created_at}</td>
+              <td>
+                <div style="display: flex; gap: 6px;">
+                  ${c.status !== 'active' ? `<button class="btn-action-small" onclick="updateCaseStatus('${c.case_id}', 'active')">Enforce Active</button>` : ''}
+                  ${c.status !== 'removed' ? `<button class="btn-action-small" style="color:#b91c1c;" onclick="updateCaseStatus('${c.case_id}', 'removed')">Revoke/Remove</button>` : ''}
+                </div>
+              </td>
+            `;
+            casesTbody.appendChild(tr);
+          });
+        }
+
+        // Populate Partners
+        const partnersTbody = document.getElementById('partnersTableBody');
+        partnersTbody.innerHTML = '';
+        if (!data.partners || !data.partners.length) {
+          partnersTbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: var(--muted); padding: 24px;">No partner applications pending.</td></tr>';
+        } else {
+          data.partners.forEach(p => {
+            const tr = document.createElement('tr');
+            
+            let statusPill = `<span class="status-pill status-pending">${(p.status || 'pending').toUpperCase()}</span>`;
+            if (p.status === 'approved') statusPill = `<span class="status-pill status-active">APPROVED</span>`;
+            if (p.status === 'rejected') statusPill = `<span class="status-pill status-removed">REJECTED</span>`;
+
+            const link = p.website_url || p.store_url || '#';
+
+            tr.innerHTML = `
+              <td><strong>${p.platform_name}</strong></td>
+              <td>${p.contact_email}</td>
+              <td><span style="font-weight:600; color:var(--accent);">${p.tier}</span></td>
+              <td>${p.has_hash_tech ? '<span style="color:#15803d; font-weight:600;">✓ Supported</span>' : '<span style="color:#b91c1c;">No</span>'}</td>
+              <td><a href="${link}" target="_blank" rel="noopener" style="color:var(--accent); text-decoration:underline;">${link !== '#' ? 'Visit Link' : '-'}</a></td>
+              <td>${statusPill}</td>
+              <td>
+                <div style="display: flex; gap: 6px;">
+                  <button class="btn-action-small" onclick="updatePartnerStatus(${p.id}, 'approved')">Approve</button>
+                  <button class="btn-action-small" style="color:#b91c1c;" onclick="updatePartnerStatus(${p.id}, 'rejected')">Reject</button>
+                </div>
+              </td>
+            `;
+            partnersTbody.appendChild(tr);
+          });
+        }
+      } catch (err) {
+        console.error('Failed to load admin data', err);
+      }
+    }
+
+    async function updateCaseStatus(caseId, status) {
+      if (!confirm(`Are you sure you want to mark case ${caseId} as ${status.toUpperCase()}?`)) return;
+      try {
+        const res = await fetch(`/api/admin/cases/${encodeURIComponent(caseId)}/status`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status })
+        });
+        if (res.ok) loadAdminData();
+      } catch (e) {
+        alert('Action failed.');
+      }
+    }
+
+    async function updatePartnerStatus(partnerId, status) {
+      try {
+        const res = await fetch(`/api/admin/partners/${partnerId}/status`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status })
+        });
+        if (res.ok) loadAdminData();
+      } catch (e) {
+        alert('Action failed.');
+      }
+    }
+
+    loadAdminData();
+  </script>
+</body>
+</html>

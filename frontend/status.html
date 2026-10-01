@@ -19,7 +19,8 @@
       <nav id="nav">
         <a href="/">Home</a>
         <a href="/#how">How It Works</a>
-        <a href="/#privacy">Safety &amp; Privacy</a>
+        <a href="/niscord">Niscord Feed</a>
+        <a href="/admin">Admin Console</a>
       </nav>
       <div class="acts">
         <a class="btn" href="/">Return to Home</a>
@@ -36,8 +37,8 @@
       </p>
     </div>
 
-    <!-- Lookup Form -->
-    <div class="card" style="background: var(--soft); border: 1px solid var(--line); padding: 24px; border-radius: 6px; margin-bottom: 30px;">
+    <!-- Lookup Box -->
+    <div style="background: var(--soft); border: 1px solid var(--line); padding: 24px; border-radius: 6px; margin-bottom: 30px;">
       <label for="caseIdInput" style="display: block; font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 8px;">
         ENTER YOUR CASE ID
       </label>
@@ -56,7 +57,7 @@
           <h2 id="resCaseId" style="font-size: 22px; font-weight: 700; color: var(--ink); margin-top: 2px;">INTI-XXXXXXXX</h2>
         </div>
         <div id="resStatusBadge" class="status-pill status-pending">
-          <i class="ri-time-line"></i> <span id="resStatusText">Pending</span>
+          <i id="resStatusIcon" class="ri-time-line"></i> <span id="resStatusText">PENDING</span>
         </div>
       </div>
 
@@ -76,18 +77,18 @@
         <ul id="resItemsList" style="padding-left: 20px; font-size: 13px; color: var(--text); margin: 0;"></ul>
       </div>
 
-      <div class="banner-notice" style="margin-bottom: 24px;">
+      <div id="statusNoticeBox" class="banner-notice" style="margin-bottom: 24px;">
         <i class="ri-shield-check-line"></i>
-        <span style="font-size: 13px;">
-          <strong>Active Protection:</strong> Partner platforms compare uploads against these hashes to stop unauthorized sharing.
+        <span id="statusNoticeText" style="font-size: 13px;">
+          <strong>Active Monitoring:</strong> Participating platforms (including Niscord) scan uploads against these hashes to stop unauthorized dissemination.
         </span>
       </div>
 
-      <!-- Revoke Button -->
-      <div style="border-top: 1px solid var(--line); padding-top: 18px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+      <!-- Revoke Section -->
+      <div id="revokeActionSection" style="border-top: 1px solid var(--line); padding-top: 18px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
         <div>
           <strong style="font-size: 13px; color: var(--ink); display: block;">Need to remove this protection?</strong>
-          <span style="font-size: 12px; color: var(--muted);">You can permanently delete this case using your Secret Token.</span>
+          <span style="font-size: 12px; color: var(--muted);">Permanently revoke protection and withdraw your fingerprints from Niscord.</span>
         </div>
         <button id="showRevokeFormBtn" class="btn alt" type="button" style="color: #b91c1c; border-color: #fca5a5;">Revoke Case</button>
       </div>
@@ -98,8 +99,8 @@
           ENTER SECRET REVOCATION TOKEN
         </label>
         <div style="display: flex; gap: 8px;">
-          <input type="text" id="revokeTokenInput" class="text-input" placeholder="Secret Token from your email" style="flex: 1;">
-          <button id="confirmRevokeBtn" class="btn" style="background: #b91c1c; border-color: #b91c1c;" type="button">Confirm Delete</button>
+          <input type="text" id="revokeTokenInput" class="text-input" placeholder="Paste Secret Token from your email" style="flex: 1;">
+          <button id="confirmRevokeBtn" class="btn" style="background: #b91c1c; border-color: #b91c1c;" type="button">Confirm Revocation</button>
         </div>
       </div>
 
@@ -150,12 +151,32 @@
 
         const badge = document.getElementById('resStatusBadge');
         const text = document.getElementById('resStatusText');
-        text.innerText = data.status.toUpperCase();
+        const icon = document.getElementById('resStatusIcon');
+        const noticeText = document.getElementById('statusNoticeText');
+        const revokeSection = document.getElementById('revokeActionSection');
+        const revokeBox = document.getElementById('revokeBox');
+
+        const currentStatus = (data.status || 'pending').toLowerCase();
         
-        if (data.status.toLowerCase() === 'pending') {
-          badge.className = 'status-pill status-pending';
-        } else {
+        if (currentStatus === 'removed') {
+          text.innerText = 'REMOVED FROM PLATFORMS';
+          badge.className = 'status-pill status-removed';
+          icon.className = 'ri-close-circle-line';
+          noticeText.innerHTML = '<strong>Protection Terminated:</strong> This case has been revoked by the owner. Visual fingerprints have been removed from partner platforms (Niscord).';
+          revokeSection.style.display = 'none';
+          revokeBox.style.display = 'none';
+        } else if (currentStatus === 'active') {
+          text.innerText = 'ACTIVE & VERIFIED';
           badge.className = 'status-pill status-active';
+          icon.className = 'ri-shield-check-line';
+          noticeText.innerHTML = '<strong>Active Monitoring:</strong> Fingerprints are active across all participating platforms including Niscord.';
+          revokeSection.style.display = 'flex';
+        } else {
+          text.innerText = 'PENDING REVIEW';
+          badge.className = 'status-pill status-pending';
+          icon.className = 'ri-time-line';
+          noticeText.innerHTML = '<strong>Case Created:</strong> Fingerprints are registered and queued in the partner synchronization pipeline.';
+          revokeSection.style.display = 'flex';
         }
 
         const list = document.getElementById('resItemsList');
@@ -163,7 +184,7 @@
         if (data.items && data.items.length) {
           data.items.forEach(i => {
             const li = document.createElement('li');
-            li.innerText = `${i.file_name} (Hash registered)`;
+            li.innerText = `${i.file_name} (${i.status === 'removed' ? 'Fingerprint Withdrawn' : 'pHash Protected'})`;
             list.appendChild(li);
           });
         } else {
@@ -193,7 +214,7 @@
         return;
       }
 
-      if (!confirm('Are you sure you want to permanently revoke and delete this case?')) return;
+      if (!confirm('Are you sure you want to revoke this case and remove protection from all partner platforms?')) return;
 
       try {
         const res = await fetch(`/api/cases/${encodeURIComponent(caseId)}`, {
@@ -203,8 +224,8 @@
         });
         const d = await res.json();
         if (res.ok) {
-          alert('Case successfully revoked and deleted.');
-          window.location.href = '/';
+          alert('Case successfully revoked. Fingerprints have been withdrawn from all partner platforms.');
+          fetchCase(caseId); // Refresh live to show REMOVED status
         } else {
           alert(d.error || 'Failed to revoke case.');
         }
