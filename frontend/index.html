@@ -3,10 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <title>IntiShield | Protect Your Intimate Images</title>
-
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css">
+  <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
@@ -15,77 +14,39 @@
 
   <!-- HEADER -->
   <header class="top">
-
     <div class="wrap bar">
-
-      <a class="brand" href="#" aria-label="IntiShield home">
-
-        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/>
-          <path d="M8.5 12l2.5 2.5 4.5-5"/>
-        </svg>
-
-        <span>Inti<b>Shield</b></span>
-
+      <a class="brand" href="/" aria-label="IntiShield home">
+        <img class="brand-logo" src="/assets/logo.png" alt="IntiShield">
       </a>
 
       <nav id="nav" aria-label="Main navigation">
-
         <a href="#how">How It Works</a>
+        <a href="#partners">Participating Platforms</a>
         <a href="#who">Eligibility</a>
-        <a href="#privacy">Safety &amp; Privacy</a>
-
+        <a href="/status">Check Status</a>
       </nav>
 
       <div class="acts">
+        <button class="btn alt open-integrate-btn" type="button">Integrate Platform</button>
+        <button class="btn start-case-btn" type="button">Get Protection</button>
 
-        <a class="btn alt" href="#how">
-          Integrate Platform
-        </a>
-
-        <a class="btn" href="#who">
-          Get Protection
-        </a>
-
-        <button
-          class="menu"
-          id="menu"
-          aria-expanded="false"
-          aria-controls="nav"
-          aria-label="Open menu"
-        >
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M4 7h16"/>
-            <path d="M4 12h16"/>
-            <path d="M4 17h16"/>
-          </svg>
+        <button class="menu" id="menu" aria-expanded="false" aria-controls="nav" aria-label="Open menu">
+          <i class="ri-menu-line" style="font-size: 20px;"></i>
         </button>
-
       </div>
-
     </div>
-
   </header>
-
 
   <main id="main">
 
     <!-- HERO -->
     <section class="wrap hero">
-
-      <img
-        class="line"
-        src="/assets/image.png"
-        alt="Phone protected by a shield"
-      >
-
+      <img class="line" src="/assets/image.png" alt="Phone protected by a shield">
       <div>
-
         <h1>
           Protect your intimate images
           <strong>before they spread.</strong>
         </h1>
-
         <p class="lead">
           IntiShield creates a private digital fingerprint of your image
           or video so participating platforms can identify matching
@@ -93,283 +54,486 @@
         </p>
 
         <div class="row">
-
-          <a class="btn lg" href="#who">
-            Protect My Media
-          </a>
-
-          <a class="btn ghost lg" href="#how">
-            How It Works
-          </a>
-
+          <button class="btn lg start-case-btn" type="button">Protect My Media</button>
+          <a class="btn ghost lg" href="#how">How It Works</a>
         </div>
-
       </div>
-
     </section>
-
 
     <!-- SUPPORT -->
     <section class="sec dark">
-
       <div class="wrap iconrow">
-
         <div class="circ">
-
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/>
-          </svg>
-
+          <i class="ri-shield-check-line" style="font-size: 24px;"></i>
         </div>
-
         <div>
-
           <h2>You are not alone</h2>
-
           <p>
             Worried someone might share your intimate images online?
             IntiShield helps you act before that happens, while keeping
             you in control of your media.
           </p>
-
-          <a class="lnk" href="#privacy">
-            We are here to help
-          </a>
-
+          <a class="lnk" href="#privacy">We are here to help</a>
         </div>
-
       </div>
-
     </section>
-
 
     <!-- HOW IT WORKS -->
     <section class="sec" id="how">
-
       <div class="wrap">
-
-        <h2 class="sh">
-          How does IntiShield work?
-        </h2>
-
-        <p class="sub">
-          Three simple steps. Your original file never leaves your device.
-        </p>
-
+        <h2 class="sh">How does IntiShield work?</h2>
+        <p class="sub">Three simple steps. Your original file never leaves your device.</p>
 
         <ol class="steps">
-
           <li>
-
-            <div class="ico">
-
-              <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
-                <rect x="7" y="2.5" width="10" height="19" rx="2"/>
-                <path d="M11 18h2"/>
-              </svg>
-
-            </div>
-
-            <h3>
-              Your media stays private
-            </h3>
-
-            <p>
-              Choose a file on your device. It is processed locally
-              and is not uploaded.
-            </p>
-
+            <h3>Your media stays private</h3>
+            <p>Choose a file on your device. It is processed locally and is not uploaded.</p>
           </li>
-
-
           <li>
-
-            <div class="ico">
-
-              <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M4 4h4v4H4z"/>
-                <path d="M10 10h4v4h-4z"/>
-                <path d="M16 4h4v4h-4z"/>
-                <path d="M4 16h4v4H4z"/>
-                <path d="M16 16h4v4h-4z"/>
-              </svg>
-
-            </div>
-
-            <h3>
-              A fingerprint is created
-            </h3>
-
-            <p>
-              Your browser turns it into a digital fingerprint.
-              Only the fingerprint is shared.
-            </p>
-
+            <h3>A fingerprint is created</h3>
+            <p>Your browser turns it into a digital fingerprint. Only the fingerprint is shared.</p>
           </li>
-
-
           <li>
-
-            <div class="ico">
-
-              <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M12 3l9 5-9 5-9-5z"/>
-                <path d="M3 13l9 5 9-5"/>
-              </svg>
-
-            </div>
-
-            <h3>
-              Participating platforms can detect matches
-            </h3>
-
-            <p>
-              Platforms compare uploads with protected fingerprints
-              and can block or review matches.
-            </p>
-
+            <h3>Participating platforms detect matches</h3>
+            <p>Platforms compare uploads with protected fingerprints and block or review matches.</p>
           </li>
-
         </ol>
-
       </div>
-
     </section>
 
+    <!-- PARTNER PLATFORMS SHOWCASE (Niscord) -->
+    <section class="sec lt" id="partners">
+      <div class="wrap">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px; margin-bottom: 32px;">
+          <div>
+            <h2 class="sh">Participating Platforms</h2>
+            <p class="sub">Platforms actively integrating IntiShield hash matching to prevent non-consensual image sharing.</p>
+          </div>
+          <button class="btn alt open-integrate-btn" type="button">
+            <i class="ri-add-line" style="margin-right: 6px;"></i> Partner With Us
+          </button>
+        </div>
+
+        <div class="partner-grid">
+          <!-- Niscord Showcase Card -->
+          <div class="partner-card">
+            <div class="partner-badge"><i class="ri-checkbox-circle-fill"></i> Active Integration</div>
+            <div class="partner-logo-wrap">
+              <img src="/assets/niscord.png" alt="Niscord" class="partner-logo">
+            </div>
+            <h3>Niscord</h3>
+            <p>Integrated perceptual hash scanner running on upload channels to prevent unauthorized intimate image circulation.</p>
+            <span class="partner-tag">Programme Partner</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- PRIVACY -->
-    <section class="sec lt" id="privacy">
-
+    <section class="sec" id="privacy">
       <div class="wrap cards">
-
         <article>
-
-          <h3>
-            What is IntiShield?
-          </h3>
-
-          <p>
-            A tool for people who are depicted in intimate media and
-            want to prevent its unauthorized publication or redistribution.
-          </p>
-
-          <p>
-            Unlike a normal file hash, a perceptual fingerprint can help
-            identify visually similar copies, such as resized or compressed versions.
-          </p>
-
+          <h3>What is IntiShield?</h3>
+          <p>A tool for people who are depicted in intimate media and want to prevent unauthorized publication.</p>
+          <p>Unlike simple file hashes, perceptual fingerprints identify visual copies like resized or compressed media.</p>
         </article>
-
-
         <article>
-
-          <h3>
-            We protect your privacy
-          </h3>
-
-          <p>
-            The fingerprint is generated on your device and is the only
-            thing shared with IntiShield.
-          </p>
-
-          <p>
-            The service is designed to collect the minimum data needed
-            and not to keep a gallery of your original media.
-          </p>
-
+          <h3>We protect your privacy</h3>
+          <p>The fingerprint is generated on your device and is the only item shared with IntiShield.</p>
+          <p>We do not store your original photos or videos.</p>
         </article>
-
-
         <article>
-
-          <h3>
-            What it cannot do
-          </h3>
-
-          <p>
-            Detection depends on platform integration.
-            IntiShield cannot control every website.
-          </p>
-
-          <p>
-            It does not delete content that is already online.
-          </p>
-
+          <h3>What it cannot do</h3>
+          <p>Detection depends on platform integration. It does not automatically delete content already published online.</p>
         </article>
-
       </div>
-
     </section>
-
 
     <!-- ELIGIBILITY -->
     <section class="sec dark" id="who">
-
       <div class="wrap iconrow">
-
         <div class="circ">
+          <i class="ri-user-follow-line" style="font-size: 24px;"></i>
+        </div>
+        <div>
+          <h2>Who is IntiShield for?</h2>
+          <p>If all of the following apply, you can use IntiShield:</p>
+          <ul class="ticks">
+            <li>I am depicted in the media.</li>
+            <li>The media contains nude, semi-nude, or sexual content.</li>
+            <li>I was 18 or older when the media was created.</li>
+            <li>I do not consent to the media being published or redistributed online.</li>
+          </ul>
+          <button class="btn light start-case-btn" type="button">Get Protection</button>
+        </div>
+      </div>
+    </section>
 
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
-
-            <circle cx="9" cy="8" r="3"/>
-
-            <path d="M3.5 20c0-3.3 2.5-5.5 5.5-5.5s5.5 2.2 5.5 5.5"/>
-
-            <path d="M16 5.5a3 3 0 010 5.5"/>
-
-            <path d="M18 14.8c1.7.7 2.8 2.4 2.8 5.2"/>
-
-          </svg>
-
+    <!-- ================= CASE CREATION MODAL ================= -->
+    <div id="caseModal" class="modal-overlay" aria-hidden="true">
+      <div class="modal-card">
+        
+        <!-- Header -->
+        <div class="modal-header">
+          <h2>Create Your Case</h2>
+          <div class="modal-progress-wrap">
+            <span id="stepCounterText">0 / 10 (0%)</span>
+            <div class="progress-bar-bg">
+              <div id="progressBar" class="progress-bar-fill" style="width: 0%;"></div>
+            </div>
+            <button id="closeModalBtn" class="close-modal-btn" aria-label="Close dialog">
+              <i class="ri-close-line"></i>
+            </button>
+          </div>
         </div>
 
+        <div class="modal-body">
 
-        <div>
+          <!-- STEP 0: Introduction / Eligibility -->
+          <div class="wizard-step" data-step="0">
+            <div class="banner-notice">
+              <i class="ri-information-line"></i>
+              <span>IntiShield only accepts Non-Consensual Intimate Images and Videos. <strong>Ineligible media cannot be protected.</strong></span>
+            </div>
+            
+            <p class="wizard-lead">
+              Create a client-side digital fingerprint of your media to register protection. Review the following criteria before proceeding:
+            </p>
 
-          <h2>
-            Who is IntiShield for?
-          </h2>
+            <div class="wizard-block">
+              <h4>Eligibility Requirements</h4>
+              <ul class="bullet-list">
+                <li><strong>You</strong> are depicted in the images</li>
+                <li>The media depicts you <strong>nude, semi-nude</strong>, or engaging in an intimate act</li>
+                <li>You were <strong>18 years or older</strong> when the media was created</li>
+              </ul>
 
-          <p>
-            If all of the following apply, you can use IntiShield.
+              <h4>Eligible Submissions</h4>
+              <ul class="bullet-list">
+                <li>Nude or sexual media published or threatened to be published without your consent</li>
+                <li>Synthetic or AI-generated intimate images depicting you</li>
+              </ul>
+
+              <h4>Ineligible Submissions</h4>
+              <ul class="bullet-list">
+                <li>Commercial or licensed content</li>
+                <li>Screenshots of text chats or audio recordings</li>
+                <li>Test media not depicting intimate content</li>
+              </ul>
+            </div>
+
+            <div class="action-center">
+              <button class="btn lg" onclick="wizard.nextStep()">I Agree &amp; Continue</button>
+            </div>
+          </div>
+
+          <!-- STEP 1: Age verification -->
+          <div class="wizard-step" data-step="1" style="display: none;">
+            <p class="question-text">What was your age in the image(s) or video(s)?</p>
+            <div class="options-row">
+              <button class="option-btn" onclick="wizard.selectAge('under18')">Under 18</button>
+              <button class="option-btn" onclick="wizard.selectAge('18plus')">18 or older</button>
+            </div>
+          </div>
+
+          <!-- STEP 1.5: NEPAL LAW UNDER-18 ADVISORY SCREEN -->
+          <div class="wizard-step" data-step="under18-warning" style="display: none;">
+            <div class="banner-red">
+              <i class="ri-alert-line"></i>
+              <strong>Legal Advisory: Under Nepali Law</strong>
+            </div>
+            <p style="margin-top: 14px; font-size: 14px; color: var(--text); line-height: 1.6;">
+              Under Nepal's <strong>Electronic Transactions Act 2063 (Section 47)</strong>, the <strong>Children's Act 2075</strong>, and the <strong>National Penal Code 2074</strong>, intimate media of anyone under 18 requires official law enforcement intervention.
+            </p>
+            <p style="margin-top: 10px; font-size: 14px; color: var(--text); line-height: 1.6;">
+              IntiShield does not process automated self-hashes for minors. Please reach out directly to child protection authorities:
+            </p>
+            <div class="nepal-hotline-box">
+              <h4>Direct Support &amp; Emergency Reporting in Nepal:</h4>
+              <ul>
+                <li><i class="ri-phone-line"></i> <strong>Nepal Police Cyber Bureau:</strong> 01-4219044 or Hotline 100</li>
+                <li><i class="ri-mail-line"></i> <strong>Cyber Bureau Email:</strong> <a href="mailto:cyberbureau@nepalpolice.gov.np">cyberbureau@nepalpolice.gov.np</a></li>
+                <li><i class="ri-service-line"></i> <strong>National Child Helpline:</strong> Call 1098 (Toll Free, Nepal)</li>
+                <li><i class="ri-external-link-line"></i> <strong>International Minor Protection:</strong> <a href="https://takeitdown.ncmec.org" target="_blank" rel="noopener">Take It Down (NCMEC)</a></li>
+              </ul>
+            </div>
+            <div class="action-center">
+              <button class="btn alt" onclick="wizard.reset()">Back to Home</button>
+            </div>
+          </div>
+
+          <!-- STEP 2: Who is depicted -->
+          <div class="wizard-step" data-step="2" style="display: none;">
+            <p class="question-text">Who is depicted in the media?</p>
+            <div class="options-row">
+              <button class="option-btn" onclick="wizard.selectDepicted('myself')">Myself</button>
+              <button class="option-btn" onclick="wizard.selectDepicted('me_and_known')">Me and someone I know</button>
+              <button class="option-btn" onclick="wizard.selectDepicted('someone_else')">Someone else</button>
+            </div>
+          </div>
+
+          <!-- STEP 3: Consent Check -->
+          <div class="wizard-step" data-step="3" style="display: none;">
+            <p class="question-text">Did you consent to this media being published online?</p>
+            <div class="options-row">
+              <button class="option-btn" onclick="wizard.nextStep()">No, I do not consent</button>
+              <button class="option-btn" onclick="wizard.alertNotEligible('If you consented to publication, IntiShield cannot create a non-consensual protection case.')">Yes, I consented</button>
+            </div>
+          </div>
+
+          <!-- STEP 4: Nudity check -->
+          <div class="wizard-step" data-step="4" style="display: none;">
+            <p class="question-text">Does the media show nude or semi-nude content?</p>
+            <div class="options-row">
+              <button class="option-btn" onclick="wizard.nextStep()">Yes, nude or semi-nude</button>
+              <button class="option-btn" onclick="wizard.alertNotEligible('IntiShield is designed specifically for nude, semi-nude, or intimate media.')">No, fully clothed</button>
+            </div>
+          </div>
+
+          <!-- STEP 5: Sexual act -->
+          <div class="wizard-step" data-step="5" style="display: none;">
+            <p class="question-text">Does the media depict an intimate or sexual act?</p>
+            <div class="options-row">
+              <button class="option-btn" onclick="wizard.nextStep()">Yes</button>
+              <button class="option-btn" onclick="wizard.nextStep()">No</button>
+            </div>
+          </div>
+
+          <!-- STEP 6: Already shared -->
+          <div class="wizard-step" data-step="6" style="display: none;">
+            <p class="question-text">Has this media already been uploaded or distributed online?</p>
+            <div class="options-row">
+              <button class="option-btn" onclick="wizard.nextStep()">Yes, it has been shared</button>
+              <button class="option-btn" onclick="wizard.nextStep()">No, not yet</button>
+              <button class="option-btn" onclick="wizard.nextStep()">I am not sure</button>
+            </div>
+          </div>
+
+          <!-- STEP 7: Local Fingerprinting -->
+          <div class="wizard-step" data-step="7" style="display: none;">
+            <div class="banner-notice">
+              <i class="ri-shield-keyhole-line"></i>
+              <span><strong>Privacy Guarantee:</strong> Files never leave your browser. Only digital hashes are calculated locally.</span>
+            </div>
+            
+            <p class="wizard-lead">
+              Select the images from your device. Your browser calculates a unique visual hash locally; original files are never uploaded.
+            </p>
+
+            <div class="file-upload-box">
+              <input type="file" id="mediaFileInput" accept="image/*" multiple style="display: none;">
+              <button class="btn" onclick="document.getElementById('mediaFileInput').click()">
+                <i class="ri-upload-cloud-line" style="margin-right: 6px;"></i> Select Photos
+              </button>
+              <p class="sub-muted">Select up to 20 images per case.</p>
+            </div>
+
+            <!-- List of locally hashed files -->
+            <div id="hashedFilesList" class="hashed-list"></div>
+
+            <div class="action-center" id="step7NextBtnWrapper" style="display: none;">
+              <button class="btn" onclick="wizard.nextStep()">Continue to Contact Details</button>
+            </div>
+          </div>
+
+          <!-- STEP 8: Email Entry -->
+          <div class="wizard-step" data-step="8" style="display: none;">
+            <p class="question-text">Enter your email address to receive your Case ID and Revocation Token:</p>
+            <p class="sub-muted" style="margin-bottom: 16px;">We only use this to send your confidential reference information.</p>
+            
+            <div>
+              <input type="email" id="userEmail" class="text-input" placeholder="name@example.com" required>
+            </div>
+
+            <div class="action-center">
+              <button class="btn" onclick="wizard.submitEmail()">Continue to Review</button>
+            </div>
+          </div>
+
+          <!-- STEP 9: Finalize & Review -->
+          <div class="wizard-step" data-step="9" style="display: none;">
+            <p class="question-text">Review and Confirm Case</p>
+            <div class="finalize-summary">
+              <p><strong>Media Items:</strong> <span id="summaryCount">0</span> local fingerprint(s) created</p>
+              <p style="margin-top: 6px;"><strong>Notification Email:</strong> <span id="summaryEmail"></span></p>
+              <p style="margin-top: 14px; font-size: 13px; color: var(--muted); line-height: 1.5;">
+                By confirming, only the calculated mathematical hashes will be registered with the IntiShield network. Original media remains untouched on your device.
+              </p>
+            </div>
+
+            <div class="action-center">
+              <button id="finalSubmitBtn" class="btn lg" onclick="wizard.finalizeCase()">Register Fingerprints</button>
+            </div>
+          </div>
+
+          <!-- STEP 10: SUCCESS SCREEN -->
+          <div class="wizard-step" data-step="10" style="display: none;">
+            <div class="success-card">
+              <div class="success-badge-header">
+                <div class="success-icon"><i class="ri-check-line"></i></div>
+                <div>
+                  <h3 style="font-size: 18px; color: var(--ink);">Case Created (Pending Review)</h3>
+                  <p class="sub-muted">A confirmation reference and status link have been dispatched to your email.</p>
+                </div>
+              </div>
+
+              <div class="case-badge-box">
+                <span class="label">Confidential Case ID</span>
+                <span id="createdCaseId" class="badge-case-id">INTI-XXXXXXXX</span>
+                
+                <span class="label" style="margin-top: 14px;">Secret Revocation Token (Save this)</span>
+                <span id="createdSecretToken" class="badge-token">Loading...</span>
+              </div>
+
+              <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <a id="goToStatusBtn" class="btn" href="/status">Track Case Status</a>
+                <button class="btn alt" onclick="wizard.reset()">Close</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ================= INTEGRATE PLATFORM MODAL ================= -->
+    <div id="partnerModal" class="modal-overlay" aria-hidden="true">
+      <div class="modal-card partner-modal-card">
+        
+        <div class="modal-header">
+          <h2>Partner with IntiShield</h2>
+          <button id="closePartnerModalBtn" class="close-modal-btn" aria-label="Close dialog">
+            <i class="ri-close-line"></i>
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <p class="wizard-lead" style="font-size: 14px; margin-bottom: 18px;">
+            We offer direct integration pathways for apps, web services, and content networks to query our perceptual hash database and block unauthorized intimate media.
           </p>
 
+          <!-- Pathway Cards -->
+          <div class="pathway-grid">
+            <div class="pathway-card active" onclick="partnerWizard.selectTier('Approved Participant', this)">
+              <div class="pathway-icon">
+                <i class="ri-shield-keyhole-line"></i>
+              </div>
+              <div>
+                <h3>Approved Participant</h3>
+                <p>Register to query the IntiShield hash registry on uploads without joining our wider programme.</p>
+              </div>
+            </div>
 
-          <ul class="ticks">
+            <div class="pathway-card" onclick="partnerWizard.selectTier('Programme Partner', this)">
+              <div class="pathway-icon">
+                <i class="ri-star-line"></i>
+              </div>
+              <div>
+                <h3>Programme Partner</h3>
+                <p>Direct API integration, dedicated support, and featured partner branding across IntiShield.</p>
+              </div>
+            </div>
+          </div>
 
-            <li>
-              I am depicted in the media.
-            </li>
+          <!-- Comparison Table -->
+          <div class="table-wrap">
+            <table class="partner-table">
+              <thead>
+                <tr>
+                  <th>Features &amp; Benefits</th>
+                  <th style="text-align: center; width: 160px;">Approved Participant</th>
+                  <th style="text-align: center; width: 160px;">Programme Partner</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Uses perceptual hash matching API</td>
+                  <td class="check"><i class="ri-check-line"></i></td>
+                  <td class="check"><i class="ri-check-line"></i></td>
+                </tr>
+                <tr>
+                  <td>Compliance with zero-retention standards</td>
+                  <td class="check"><i class="ri-check-line"></i></td>
+                  <td class="check"><i class="ri-check-line"></i></td>
+                </tr>
+                <tr>
+                  <td>Public directory listing</td>
+                  <td style="text-align: center; color: var(--muted); font-size: 12px;">Name Only</td>
+                  <td style="text-align: center; font-weight: 600; color: var(--accent); font-size: 12px;">Full Logo &amp; Badge</td>
+                </tr>
+                <tr>
+                  <td>Dedicated API technical support</td>
+                  <td class="dash"><i class="ri-subtract-line"></i></td>
+                  <td class="check"><i class="ri-check-line"></i></td>
+                </tr>
+                <tr>
+                  <td>Working groups &amp; safety summits</td>
+                  <td class="dash"><i class="ri-subtract-line"></i></td>
+                  <td class="check"><i class="ri-check-line"></i></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-            <li>
-              The media contains nude, semi-nude, or sexual content.
-            </li>
+          <!-- Application Form -->
+          <div class="partner-form-box">
+            <h3>
+              <i class="ri-file-list-line" style="color: var(--accent);"></i>
+              Platform Registration
+            </h3>
 
-            <li>
-              I was 18 or older when the media was created.
-            </li>
+            <div class="form-grid-2">
+              <div>
+                <label class="field-label" for="partnerName">Platform / App Name</label>
+                <input type="text" id="partnerName" class="text-input" placeholder="e.g. Niscord">
+              </div>
+              <div>
+                <label class="field-label" for="partnerEmail">Technical Contact Email</label>
+                <input type="email" id="partnerEmail" class="text-input" placeholder="security@platform.com">
+              </div>
+            </div>
 
-            <li>
-              I do not consent to the media being published or redistributed online.
-            </li>
+            <div class="form-grid-2">
+              <div>
+                <label class="field-label" for="partnerWebsite">Website URL</label>
+                <input type="url" id="partnerWebsite" class="text-input" placeholder="https://platform.com">
+              </div>
+              <div>
+                <label class="field-label" for="partnerStoreUrl">Play Store / App Store Link</label>
+                <input type="url" id="partnerStoreUrl" class="text-input" placeholder="https://play.google.com/store/...">
+              </div>
+            </div>
 
-          </ul>
+            <!-- Checkboxes -->
+            <div class="checkbox-group">
+              <label class="custom-checkbox">
+                <input type="checkbox" id="checkHashTech" required>
+                <span>Platform implements or can ingest perceptual hash scanning (Required)</span>
+              </label>
 
+              <label class="custom-checkbox">
+                <input type="checkbox" id="checkZeroRetention" required>
+                <span>We adhere to zero-retention policies for non-matching queries</span>
+              </label>
 
-          <a class="btn light" href="#">
-            Get Protection
-          </a>
+              <label class="custom-checkbox">
+                <input type="checkbox" id="checkImmediateAction" required>
+                <span>We agree to automatically block or flag verified matches</span>
+              </label>
+            </div>
+
+            <button id="submitPartnerBtn" class="btn" type="button" onclick="partnerWizard.submit()">
+              Submit Integration Request
+            </button>
+          </div>
 
         </div>
-
       </div>
-
-    </section>
+    </div>
 
   </main>
 
-
-  <script src="script.js"></script>
-
+  <script src="/script.js"></script>
 </body>
 </html>

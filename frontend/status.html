@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Case Status | IntiShield</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css">
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="top">
+    <div class="wrap bar">
+      <a class="brand" href="/" aria-label="IntiShield home">
+        <img class="brand-logo" src="/assets/logo.png" alt="IntiShield">
+      </a>
+      <nav id="nav">
+        <a href="/">Home</a>
+        <a href="/#how">How It Works</a>
+        <a href="/#privacy">Safety &amp; Privacy</a>
+      </nav>
+      <div class="acts">
+        <a class="btn" href="/">Return to Home</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap" style="padding: 60px 0; max-width: 760px;">
+    
+    <div style="margin-bottom: 28px;">
+      <h1 style="font-size: 28px; font-weight: 700; color: var(--ink); letter-spacing: -0.6px;">Check Case Status</h1>
+      <p style="color: var(--muted); font-size: 15px; margin-top: 4px;">
+        Track the status of your protected digital fingerprints across participating platforms.
+      </p>
+    </div>
+
+    <!-- Lookup Form -->
+    <div class="card" style="background: var(--soft); border: 1px solid var(--line); padding: 24px; border-radius: 6px; margin-bottom: 30px;">
+      <label for="caseIdInput" style="display: block; font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 8px;">
+        ENTER YOUR CASE ID
+      </label>
+      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <input type="text" id="caseIdInput" class="text-input" placeholder="e.g. INTI-A1B2C3D4" style="flex: 1; min-width: 220px;">
+        <button id="lookupBtn" class="btn" type="button">Look Up Case</button>
+      </div>
+    </div>
+
+    <!-- Live Status Result Card -->
+    <div id="statusResultCard" style="display: none; background: var(--white); border: 1px solid var(--line); border-radius: 6px; padding: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.04);">
+      
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid var(--line); padding-bottom: 18px; margin-bottom: 20px;">
+        <div>
+          <span style="font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase;">Case Reference</span>
+          <h2 id="resCaseId" style="font-size: 22px; font-weight: 700; color: var(--ink); margin-top: 2px;">INTI-XXXXXXXX</h2>
+        </div>
+        <div id="resStatusBadge" class="status-pill status-pending">
+          <i class="ri-time-line"></i> <span id="resStatusText">Pending</span>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 22px;">
+        <div>
+          <span style="font-size: 12px; color: var(--muted); display: block;">Registered Email</span>
+          <strong id="resEmail" style="font-size: 14px; color: var(--ink);">-</strong>
+        </div>
+        <div>
+          <span style="font-size: 12px; color: var(--muted); display: block;">Submission Date</span>
+          <strong id="resDate" style="font-size: 14px; color: var(--ink);">-</strong>
+        </div>
+      </div>
+
+      <div style="background: var(--soft); border: 1px solid var(--line); border-radius: 4px; padding: 14px 18px; margin-bottom: 22px;">
+        <span style="font-size: 13px; font-weight: 600; color: var(--ink); display: block; margin-bottom: 6px;">Protected Items:</span>
+        <ul id="resItemsList" style="padding-left: 20px; font-size: 13px; color: var(--text); margin: 0;"></ul>
+      </div>
+
+      <div class="banner-notice" style="margin-bottom: 24px;">
+        <i class="ri-shield-check-line"></i>
+        <span style="font-size: 13px;">
+          <strong>Active Protection:</strong> Partner platforms compare uploads against these hashes to stop unauthorized sharing.
+        </span>
+      </div>
+
+      <!-- Revoke Button -->
+      <div style="border-top: 1px solid var(--line); padding-top: 18px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+        <div>
+          <strong style="font-size: 13px; color: var(--ink); display: block;">Need to remove this protection?</strong>
+          <span style="font-size: 12px; color: var(--muted);">You can permanently delete this case using your Secret Token.</span>
+        </div>
+        <button id="showRevokeFormBtn" class="btn alt" type="button" style="color: #b91c1c; border-color: #fca5a5;">Revoke Case</button>
+      </div>
+
+      <!-- Revocation Input -->
+      <div id="revokeBox" style="display: none; margin-top: 16px; background: #fef2f2; border: 1px solid #fee2e2; border-radius: 4px; padding: 16px;">
+        <label for="revokeTokenInput" style="display: block; font-size: 12px; font-weight: 600; color: #991b1b; margin-bottom: 6px;">
+          ENTER SECRET REVOCATION TOKEN
+        </label>
+        <div style="display: flex; gap: 8px;">
+          <input type="text" id="revokeTokenInput" class="text-input" placeholder="Secret Token from your email" style="flex: 1;">
+          <button id="confirmRevokeBtn" class="btn" style="background: #b91c1c; border-color: #b91c1c;" type="button">Confirm Delete</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Error message card -->
+    <div id="statusErrorCard" style="display: none; background: #fef2f2; border: 1px solid #fee2e2; padding: 16px; border-radius: 4px; color: #991b1b; font-size: 14px;">
+      <i class="ri-error-warning-line" style="margin-right: 6px;"></i> <span id="statusErrorText">Case not found</span>
+    </div>
+
+  </main>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const caseIdFromUrl = urlParams.get('case_id');
+    const caseInput = document.getElementById('caseIdInput');
+    const lookupBtn = document.getElementById('lookupBtn');
+
+    if (caseIdFromUrl) {
+      caseInput.value = caseIdFromUrl;
+      fetchCase(caseIdFromUrl);
+    }
+
+    lookupBtn.addEventListener('click', () => {
+      const id = caseInput.value.trim();
+      if (id) fetchCase(id);
+    });
+
+    async function fetchCase(caseId) {
+      const resultCard = document.getElementById('statusResultCard');
+      const errorCard = document.getElementById('statusErrorCard');
+      resultCard.style.display = 'none';
+      errorCard.style.display = 'none';
+
+      try {
+        const res = await fetch(`/api/cases/${encodeURIComponent(caseId)}`);
+        const data = await res.json();
+
+        if (!res.ok) {
+          document.getElementById('statusErrorText').innerText = data.error || 'Case not found.';
+          errorCard.style.display = 'block';
+          return;
+        }
+
+        document.getElementById('resCaseId').innerText = data.case_id;
+        document.getElementById('resEmail').innerText = data.masked_email;
+        document.getElementById('resDate').innerText = data.created_at;
+
+        const badge = document.getElementById('resStatusBadge');
+        const text = document.getElementById('resStatusText');
+        text.innerText = data.status.toUpperCase();
+        
+        if (data.status.toLowerCase() === 'pending') {
+          badge.className = 'status-pill status-pending';
+        } else {
+          badge.className = 'status-pill status-active';
+        }
+
+        const list = document.getElementById('resItemsList');
+        list.innerHTML = '';
+        if (data.items && data.items.length) {
+          data.items.forEach(i => {
+            const li = document.createElement('li');
+            li.innerText = `${i.file_name} (Hash registered)`;
+            list.appendChild(li);
+          });
+        } else {
+          list.innerHTML = `<li>${data.total_items} media fingerprint(s) registered</li>`;
+        }
+
+        resultCard.style.display = 'block';
+      } catch (e) {
+        document.getElementById('statusErrorText').innerText = 'Could not retrieve case details. Check connection.';
+        errorCard.style.display = 'block';
+      }
+    }
+
+    // Revoke handler
+    const showRevokeBtn = document.getElementById('showRevokeFormBtn');
+    const revokeBox = document.getElementById('revokeBox');
+    showRevokeBtn.addEventListener('click', () => {
+      revokeBox.style.display = revokeBox.style.display === 'none' ? 'block' : 'none';
+    });
+
+    document.getElementById('confirmRevokeBtn').addEventListener('click', async () => {
+      const caseId = document.getElementById('resCaseId').innerText.trim();
+      const token = document.getElementById('revokeTokenInput').value.trim();
+
+      if (!token) {
+        alert('Please enter your Secret Revocation Token.');
+        return;
+      }
+
+      if (!confirm('Are you sure you want to permanently revoke and delete this case?')) return;
+
+      try {
+        const res = await fetch(`/api/cases/${encodeURIComponent(caseId)}`, {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ secret_token: token })
+        });
+        const d = await res.json();
+        if (res.ok) {
+          alert('Case successfully revoked and deleted.');
+          window.location.href = '/';
+        } else {
+          alert(d.error || 'Failed to revoke case.');
+        }
+      } catch (err) {
+        alert('Server error while revoking case.');
+      }
+    });
+  </script>
+</body>
+</html>
