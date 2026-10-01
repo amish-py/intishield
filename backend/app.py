@@ -23,8 +23,8 @@ init_db()
 BASE_URL = os.environ.get("BASE_URL", "http://localhost:3000")
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
-SMTP_USERNAME = os.environ.get("SMTP_USERNAME", "lamsalamish7@gmail.com")
-SMTP_PASSWORD = os.environ.get("SMTP_PASSWORD", "bpkb tswq yfob djpn")
+SMTP_USERNAME = os.environ.get("SMTP_USERNAME", "intishield.case@gmail.com")
+SMTP_PASSWORD = os.environ.get("SMTP_PASSWORD", "ueuw yhfn lxuy fxgf")
 SENDER_EMAIL = os.environ.get("SENDER_EMAIL", SMTP_USERNAME)
 
 
